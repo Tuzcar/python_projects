@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Name:        PaniniProjection_module
-# Purpose:
+# Purpose:    mainScript
 #
 # Author:      Montserrat Ordaz
 #
