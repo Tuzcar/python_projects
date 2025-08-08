@@ -17,11 +17,11 @@ from tkinter import Tk, Button, Label, filedialog
 from PIL import Image, ImageTk
 from matplotlib import pyplot as plt
 from numpy import asarray
-from PaniniProjectionBase import PaniniProjectionBase
+from PaniniBase_Test import PaniniProjectionBase_v2
 
 #Commit Test
 
-class ImageApp(PaniniProjectionBase):
+class ImageApp(PaniniProjectionBase_v2):
     def __init__(self, window, window_title):
         self.window = window
         self.window.title(window_title)
@@ -113,17 +113,17 @@ class ImageApp(PaniniProjectionBase):
         plt.show()
         self._save_fig('Lap')
 
-    def show_panini(self):
+    def _paniniImage(self):
         #Load image
         img = self._load(cv2.IMREAD_COLOR) #img = cv2.imread('checker.jpg')
         projected = self.panini_projection(img, d=1, s=0.7, fov_deg=120)
         flip = cv2.flip(projected,0)
         panini = cv2.cvtColor(flip, cv2.COLOR_BGR2RGB)
-        #Apply Panini projection
-##        projected = self.panini_projection(image_rgb, d=1, s=0.7, fov_deg=120)
-##        panini = cv2.cvtColor(projected, cv2.COLOR_BGR2RGB)
-        #Show original and projected images
-##        plt.figure(figsize=(12, 6))
+        return panini
+
+    def show_panini(self):
+        #Create panini image and show in plot.
+        panini = self._paniniImage()
         plt.title("Panini Projection (Vedutism)")
         plt.imshow(panini)
 ##        plt.tight_layout()
@@ -154,11 +154,10 @@ class ImageApp(PaniniProjectionBase):
         color   = self._load(cv2.IMREAD_COLOR)
         gray    = self._load(cv2.IMREAD_GRAYSCALE)
         lap     = cv2.Laplacian(gray, cv2.CV_64F)
-        panini  = self.show_panini
+        panini  = self._paniniImage()
 ##        sx    = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
 ##        sy    = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
 
-        plt.figure(figsize=(8,8))
         plt.subplot(2,2,1); plt.imshow(cv2.cvtColor(color, cv2.COLOR_BGR2RGB)); plt.title('Original'); plt.axis('off')
         plt.subplot(2,2,3); plt.imshow(gray, cmap='gray'); plt.title('B&W'); plt.axis('off')
         plt.subplot(2,2,2); plt.imshow(lap, cmap='gray'); plt.title('Laplacian'); plt.axis('off')

@@ -17,7 +17,7 @@ from tkinter import Tk, Button, Label, filedialog
 from PIL import Image, ImageTk
 from matplotlib import pyplot as plt
 
-class PaniniProjectionBase:
+class PaniniProjectionBase_v2:
     def __init__(self, window, window_title):
         self.window = window
         self.window.title(window_title)
@@ -108,4 +108,4 @@ class PaniniProjectionBase:
         self.window.destroy()
 
 if __name__ == '__main__':
-    PaniniProjectionBase(Tk(), "Image Processing App")
+    PaniniProjectionBase_v2(Tk(), "Image Processing App")
